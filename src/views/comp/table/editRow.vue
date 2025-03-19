@@ -1,105 +1,105 @@
 <template>
   <n-card :bordered="false" class="proCard">
     <BasicTable
+      ref="actionRef"
       title="表格列表"
-      titleTooltip="这是一个提示"
+      title-tooltip="这是一个提示"
       :columns="columns"
       :request="loadDataTable"
       :row-key="(row) => row.id"
-      ref="actionRef"
-      :actionColumn="actionColumn"
+      :action-column="actionColumn"
+      :scroll-x="1590"
       @edit-end="editEnd"
       @edit-change="onEditChange"
       @update:checked-row-keys="onCheckedRow"
-      :scroll-x="1590"
     />
   </n-card>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, h } from 'vue';
-  import { BasicTable, TableAction } from '@/components/Table';
-  import { getTableList } from '@/api/table/list';
-  import { columns } from './rowColumns';
+import { reactive, ref, h } from 'vue'
+import { BasicTable, TableAction } from '@/components/Table'
+import { getTableList } from '@/api/table/list'
+import { columns } from './rowColumns'
 
-  const actionRef = ref();
-  const currentEditKeyRef = ref('');
-  const params = reactive({
-    pageSize: 5,
-    name: 'NaiveAdmin',
-  });
+const actionRef = ref()
+const currentEditKeyRef = ref('')
+const params = reactive({
+  pageSize: 5,
+  name: 'NaiveAdmin',
+})
 
-  const actionColumn = reactive({
-    width: 150,
-    title: '操作',
-    key: 'action',
-    fixed: 'right',
-    align: 'center',
-    render(record) {
-      return h(TableAction, {
-        style: 'button',
-        actions: createActions(record),
-      });
-    },
-  });
+const actionColumn = reactive({
+  width: 150,
+  title: '操作',
+  key: 'action',
+  fixed: 'right',
+  align: 'center',
+  render(record) {
+    return h(TableAction, {
+      style: 'button',
+      actions: createActions(record),
+    })
+  },
+})
 
-  function handleEdit(record) {
-    currentEditKeyRef.value = record.key;
-    record.onEdit?.(true);
+function handleEdit(record) {
+  currentEditKeyRef.value = record.key
+  record.onEdit?.(true)
+}
+
+function handleCancel(record) {
+  currentEditKeyRef.value = ''
+  record.onEdit?.(false, false)
+}
+
+function onEditChange({ column, value, record }) {
+  if (column.key === 'id') {
+    record.editValueRefs.name4.value = `${value}`
   }
+  console.log(column, value, record)
+}
 
-  function handleCancel(record) {
-    currentEditKeyRef.value = '';
-    record.onEdit?.(false, false);
+async function handleSave(record) {
+  const pass = await record.onEdit?.(false, true)
+  if (pass) {
+    currentEditKeyRef.value = ''
   }
+}
 
-  function onEditChange({ column, value, record }) {
-    if (column.key === 'id') {
-      record.editValueRefs.name4.value = `${value}`;
-    }
-    console.log(column, value, record);
+function createActions(record) {
+  if (!record.editable) {
+    return [
+      {
+        label: '编辑',
+        onClick: handleEdit.bind(null, record),
+      },
+    ]
+  } else {
+    return [
+      {
+        label: '保存',
+        onClick: handleSave.bind(null, record),
+      },
+      {
+        label: '取消',
+        onClick: handleCancel.bind(null, record),
+      },
+    ]
   }
+}
 
-  async function handleSave(record) {
-    const pass = await record.onEdit?.(false, true);
-    if (pass) {
-      currentEditKeyRef.value = '';
-    }
-  }
+const loadDataTable = async (res) => {
+  return await getTableList({ ...params, ...res })
+}
 
-  function createActions(record) {
-    if (!record.editable) {
-      return [
-        {
-          label: '编辑',
-          onClick: handleEdit.bind(null, record),
-        },
-      ];
-    } else {
-      return [
-        {
-          label: '保存',
-          onClick: handleSave.bind(null, record),
-        },
-        {
-          label: '取消',
-          onClick: handleCancel.bind(null, record),
-        },
-      ];
-    }
-  }
+function onCheckedRow(rowKeys) {
+  console.log(rowKeys)
+}
 
-  const loadDataTable = async (res) => {
-    return await getTableList({ ...params, ...res });
-  };
-
-  function onCheckedRow(rowKeys) {
-    console.log(rowKeys);
-  }
-
-  function editEnd({ value }) {
-    console.log(value);
-  }
+function editEnd({ value }) {
+  console.log(value)
+}
 </script>
 
 <style lang="less" scoped></style>

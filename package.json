@@ -22,7 +22,9 @@
     "lint:eslint": "eslint \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "lint:pretty": "pretty-quick --staged"
+    "lint:pretty": "pretty-quick --staged",
+    "lint": "run-s lint:*",
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@alova/mock": "^2.0.6",
@@ -30,7 +32,7 @@
     "@vicons/ionicons5": "^0.12.0",
     "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^9.13.0",
-    "alova": "^3.0.16",
+    "alova": "^3.2.10",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.13",
     "echarts": "^5.5.1",
@@ -72,6 +74,7 @@
     "less": "^4.2.0",
     "less-loader": "^11.1.4",
     "lint-staged": "^13.3.0",
+    "npm-run-all2": "^7.0.2",
     "oxlint": "^0.16.0",
     "postcss": "^8.4.45",
     "prettier": "3.5.3",

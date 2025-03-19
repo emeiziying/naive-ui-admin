@@ -31,9 +31,9 @@
       </n-alert>
     </n-card>
 
-    <basicModal @register="modalRegister" ref="modalRef" class="basicModal" @on-ok="okModal">
+    <basicModal ref="modalRef" class="basicModal" @register="modalRegister" @on-ok="okModal">
       <template #default>
-        <BasicForm @register="register" @reset="handleReset" class="basicForm">
+        <BasicForm class="basicForm" @register="register" @reset="handleReset">
           <template #statusSlot="{ model, field }">
             <n-input v-model:value="model[field]" />
           </template>
@@ -42,9 +42,9 @@
     </basicModal>
 
     <basicModal
-      @register="lightModalRegister"
-      class="basicModalLight"
       ref="modalRef"
+      class="basicModalLight"
+      @register="lightModalRegister"
       @on-ok="lightOkModal"
     >
       <template #default>
@@ -55,225 +55,225 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { useMessage } from 'naive-ui';
-  import { basicModal, useModal } from '@/components/Modal';
-  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+import { ref } from 'vue'
+import { useMessage } from 'naive-ui'
+import { basicModal, useModal } from '@/components/Modal'
+import { BasicForm, FormSchema, useForm } from '@/components/Form/index'
 
-  const schemas: FormSchema[] = [
-    {
-      field: 'name',
-      component: 'NInput',
-      label: '姓名',
-      labelMessage: '这是一个提示',
-      giProps: {
-        span: 1,
+const schemas: FormSchema[] = [
+  {
+    field: 'name',
+    component: 'NInput',
+    label: '姓名',
+    labelMessage: '这是一个提示',
+    giProps: {
+      span: 1,
+    },
+    componentProps: {
+      placeholder: '请输入姓名',
+      onInput: (e: any) => {
+        console.log(e)
       },
-      componentProps: {
-        placeholder: '请输入姓名',
-        onInput: (e: any) => {
-          console.log(e);
+    },
+    rules: [{ required: true, message: '请输入姓名', trigger: ['blur'] }],
+  },
+  {
+    field: 'mobile',
+    component: 'NInputNumber',
+    label: '手机',
+    componentProps: {
+      placeholder: '请输入手机号码',
+      showButton: false,
+      onInput: (e: any) => {
+        console.log(e)
+      },
+    },
+  },
+  {
+    field: 'type',
+    component: 'NSelect',
+    label: '类型',
+    giProps: {
+      //span: 24,
+    },
+    componentProps: {
+      placeholder: '请选择类型',
+      options: [
+        {
+          label: '舒适性',
+          value: 1,
         },
-      },
-      rules: [{ required: true, message: '请输入姓名', trigger: ['blur'] }],
-    },
-    {
-      field: 'mobile',
-      component: 'NInputNumber',
-      label: '手机',
-      componentProps: {
-        placeholder: '请输入手机号码',
-        showButton: false,
-        onInput: (e: any) => {
-          console.log(e);
+        {
+          label: '经济性',
+          value: 2,
         },
+      ],
+      onUpdateValue: (e: any) => {
+        console.log(e)
       },
     },
-    {
-      field: 'type',
-      component: 'NSelect',
-      label: '类型',
-      giProps: {
-        //span: 24,
+  },
+  {
+    field: 'makeDate',
+    component: 'NDatePicker',
+    label: '预约时间',
+    giProps: {
+      //span: 24,
+    },
+    defaultValue: 1183135260000,
+    componentProps: {
+      type: 'date',
+      clearable: true,
+      onUpdateValue: (e: any) => {
+        console.log(e)
       },
-      componentProps: {
-        placeholder: '请选择类型',
-        options: [
-          {
-            label: '舒适性',
-            value: 1,
-          },
-          {
-            label: '经济性',
-            value: 2,
-          },
-        ],
-        onUpdateValue: (e: any) => {
-          console.log(e);
+    },
+  },
+  {
+    field: 'makeTime',
+    component: 'NTimePicker',
+    label: '停留时间',
+    giProps: {
+      //span: 24,
+    },
+    componentProps: {
+      clearable: true,
+      onUpdateValue: (e: any) => {
+        console.log(e)
+      },
+    },
+  },
+  {
+    field: 'makeProject',
+    component: 'NCheckbox',
+    label: '预约项目',
+    giProps: {
+      //span: 24,
+    },
+    componentProps: {
+      placeholder: '请选择预约项目',
+      options: [
+        {
+          label: '种牙',
+          value: 1,
         },
-      },
-    },
-    {
-      field: 'makeDate',
-      component: 'NDatePicker',
-      label: '预约时间',
-      giProps: {
-        //span: 24,
-      },
-      defaultValue: 1183135260000,
-      componentProps: {
-        type: 'date',
-        clearable: true,
-        onUpdateValue: (e: any) => {
-          console.log(e);
+        {
+          label: '补牙',
+          value: 2,
         },
-      },
-    },
-    {
-      field: 'makeTime',
-      component: 'NTimePicker',
-      label: '停留时间',
-      giProps: {
-        //span: 24,
-      },
-      componentProps: {
-        clearable: true,
-        onUpdateValue: (e: any) => {
-          console.log(e);
+        {
+          label: '根管',
+          value: 3,
         },
+      ],
+      onUpdateChecked: (e: any) => {
+        console.log(e)
       },
     },
-    {
-      field: 'makeProject',
-      component: 'NCheckbox',
-      label: '预约项目',
-      giProps: {
-        //span: 24,
-      },
-      componentProps: {
-        placeholder: '请选择预约项目',
-        options: [
-          {
-            label: '种牙',
-            value: 1,
-          },
-          {
-            label: '补牙',
-            value: 2,
-          },
-          {
-            label: '根管',
-            value: 3,
-          },
-        ],
-        onUpdateChecked: (e: any) => {
-          console.log(e);
+  },
+  {
+    field: 'makeSource',
+    component: 'NRadioGroup',
+    label: '来源',
+    giProps: {
+      //span: 24,
+    },
+    componentProps: {
+      options: [
+        {
+          label: '网上',
+          value: 1,
         },
-      },
-    },
-    {
-      field: 'makeSource',
-      component: 'NRadioGroup',
-      label: '来源',
-      giProps: {
-        //span: 24,
-      },
-      componentProps: {
-        options: [
-          {
-            label: '网上',
-            value: 1,
-          },
-          {
-            label: '门店',
-            value: 2,
-          },
-        ],
-        onUpdateChecked: (e: any) => {
-          console.log(e);
+        {
+          label: '门店',
+          value: 2,
         },
+      ],
+      onUpdateChecked: (e: any) => {
+        console.log(e)
       },
     },
-    {
-      field: 'status',
-      label: '状态',
-      giProps: {
-        //span: 24,
-      },
-      //插槽
-      slot: 'statusSlot',
+  },
+  {
+    field: 'status',
+    label: '状态',
+    giProps: {
+      //span: 24,
     },
-  ];
+    //插槽
+    slot: 'statusSlot',
+  },
+]
 
-  const modalRef: any = ref(null);
-  const message = useMessage();
+const modalRef: any = ref(null)
+const message = useMessage()
 
-  const [modalRegister, { openModal, closeModal, setSubLoading }] = useModal({
-    title: '新增预约',
-  });
+const [modalRegister, { openModal, closeModal, setSubLoading }] = useModal({
+  title: '新增预约',
+})
 
-  const [
-    lightModalRegister,
-    { openModal: lightOpenModal, closeModal: lightCloseModal, setSubLoading: lightSetSubLoading },
-  ] = useModal({
-    title: '确认对话框',
-    showIcon: true,
-    type: 'warning',
-    closable: false,
-    maskClosable: true,
-  });
+const [
+  lightModalRegister,
+  { openModal: lightOpenModal, closeModal: lightCloseModal, setSubLoading: lightSetSubLoading },
+] = useModal({
+  title: '确认对话框',
+  showIcon: true,
+  type: 'warning',
+  closable: false,
+  maskClosable: true,
+})
 
-  const [register, { submit }] = useForm({
-    gridProps: { cols: 1 },
-    collapsedRows: 3,
-    labelWidth: 120,
-    layout: 'horizontal',
-    submitButtonText: '提交预约',
-    showActionButtonGroup: false,
-    schemas,
-  });
+const [register, { submit }] = useForm({
+  gridProps: { cols: 1 },
+  collapsedRows: 3,
+  labelWidth: 120,
+  layout: 'horizontal',
+  submitButtonText: '提交预约',
+  showActionButtonGroup: false,
+  schemas,
+})
 
-  async function okModal() {
-    const formRes = await submit();
-    if (formRes) {
-      closeModal();
-      console.log('formRes', formRes);
-      message.success('提交成功');
-    } else {
-      message.error('验证失败，请填写完整信息');
-      setSubLoading(false);
-    }
+async function okModal() {
+  const formRes = await submit()
+  if (formRes) {
+    closeModal()
+    console.log('formRes', formRes)
+    message.success('提交成功')
+  } else {
+    message.error('验证失败，请填写完整信息')
+    setSubLoading(false)
   }
+}
 
-  function lightOkModal() {
-    lightCloseModal();
-    lightSetSubLoading(false);
-  }
+function lightOkModal() {
+  lightCloseModal()
+  lightSetSubLoading(false)
+}
 
-  function showLightModal() {
-    lightOpenModal();
-  }
+function showLightModal() {
+  lightOpenModal()
+}
 
-  function showModal() {
-    openModal();
-  }
+function showModal() {
+  openModal()
+}
 
-  function handleReset(values: Recordable) {
-    console.log(values);
-  }
+function handleReset(values: Recordable) {
+  console.log(values)
+}
 </script>
 
 <style lang="less">
-  .basicForm {
-    padding-top: 20px;
-  }
+.basicForm {
+  padding-top: 20px;
+}
 
-  .n-dialog.basicModal {
-    width: 640px;
-  }
+.n-dialog.basicModal {
+  width: 640px;
+}
 
-  .n-dialog.basicModalLight {
-    width: 416px;
-    padding-top: 26px;
-  }
+.n-dialog.basicModalLight {
+  width: 416px;
+  padding-top: 26px;
+}
 </style>

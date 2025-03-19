@@ -1,9 +1,9 @@
-import { RouteRecordRaw } from 'vue-router';
-import { Layout, ParentLayout } from '@/router/constant';
-import { WalletOutlined } from '@vicons/antd';
-import { renderIcon, renderNew } from '@/utils';
+import { RouteRecordRaw } from 'vue-router'
+import { Layout, ParentLayout } from '@/router/constant'
+import { WalletOutlined } from '@vicons/antd'
+import { renderIcon, renderNew } from '@/utils'
 
-const routeName = 'comp';
+const routeName = 'comp'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -115,6 +115,6 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes

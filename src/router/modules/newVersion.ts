@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/router/constant';
-import { SketchOutlined } from '@vicons/antd';
-import { renderIcon, renderNew } from '@/utils/index';
+import { RouteRecordRaw } from 'vue-router'
+import { Layout } from '@/router/constant'
+import { SketchOutlined } from '@vicons/antd'
+import { renderIcon, renderNew } from '@/utils/index'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,6 +15,6 @@ const routes: Array<RouteRecordRaw> = [
       sort: 12,
     },
   },
-];
+]
 
-export default routes;
+export default routes

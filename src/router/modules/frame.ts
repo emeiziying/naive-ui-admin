@@ -1,9 +1,9 @@
-import { RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/router/constant';
-import { DesktopOutline } from '@vicons/ionicons5';
-import { renderIcon } from '@/utils/index';
+import { RouteRecordRaw } from 'vue-router'
+import { Layout } from '@/router/constant'
+import { DesktopOutline } from '@vicons/ionicons5'
+import { renderIcon } from '@/utils/index'
 
-const IFrame = () => import('@/views/iframe/index.vue');
+const IFrame = () => import('@/views/iframe/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -46,6 +46,6 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes

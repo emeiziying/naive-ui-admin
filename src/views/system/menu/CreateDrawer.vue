@@ -2,9 +2,9 @@
   <n-drawer v-model:show="state.isDrawer" :width="width" :placement="state.placement">
     <n-drawer-content :title="title" closable>
       <n-form
+        ref="formRef"
         :model="formParams"
         :rules="rules"
-        ref="formRef"
         label-placement="left"
         :label-width="100"
       >
@@ -12,13 +12,13 @@
           <span>{{ formParams.type === 1 ? '侧边栏菜单' : '' }}</span>
         </n-form-item>
         <n-form-item label="标题" path="label">
-          <n-input placeholder="请输入标题" v-model:value="formParams.label" />
+          <n-input v-model:value="formParams.label" placeholder="请输入标题" />
         </n-form-item>
         <n-form-item label="副标题" path="subtitle">
-          <n-input placeholder="请输入副标题" v-model:value="formParams.subtitle" />
+          <n-input v-model:value="formParams.subtitle" placeholder="请输入副标题" />
         </n-form-item>
         <n-form-item label="路径" path="path">
-          <n-input placeholder="请输入路径" v-model:value="formParams.path" />
+          <n-input v-model:value="formParams.path" placeholder="请输入路径" />
         </n-form-item>
         <n-form-item label="打开方式" path="openType">
           <n-radio-group v-model:value="formParams.openType" name="openType">
@@ -29,7 +29,7 @@
           </n-radio-group>
         </n-form-item>
         <n-form-item label="菜单权限" path="auth">
-          <n-input placeholder="请输入权限，多个权限用，分割" v-model:value="formParams.auth" />
+          <n-input v-model:value="formParams.auth" placeholder="请输入权限，多个权限用，分割" />
         </n-form-item>
         <n-form-item label="隐藏侧边栏" path="hidden">
           <n-switch v-model:value="formParams.hidden" />
@@ -47,73 +47,69 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
-  import { useMessage } from 'naive-ui';
+import { useMessage } from 'naive-ui'
+import { reactive, ref } from 'vue'
 
-  const rules = {
-    label: {
-      required: true,
-      message: '请输入标题',
-      trigger: 'blur',
-    },
-    path: {
-      required: true,
-      message: '请输入路径',
-      trigger: 'blur',
-    },
-  };
+const rules = {
+  label: {
+    required: true,
+    message: '请输入标题',
+    trigger: 'blur',
+  },
+  path: {
+    required: true,
+    message: '请输入路径',
+    trigger: 'blur',
+  },
+}
 
-  defineProps({
-    title: {
-      type: String,
-      default: '添加顶级菜单',
-    },
-    width: {
-      type: Number,
-      default: 450,
-    },
-  });
+defineProps({
+  title: {
+    type: String,
+    default: '添加顶级菜单',
+  },
+  width: {
+    type: Number,
+    default: 450,
+  },
+})
 
-  const message = useMessage();
-  const formRef: any = ref(null);
-  const defaultValueRef = () => ({
-    label: '',
-    type: 1,
-    subtitle: '',
-    openType: 1,
-    auth: '',
-    path: '',
-    hidden: false,
-  });
-  const formParams = ref(defaultValueRef());
-  const state = reactive({
-    isDrawer: false,
-    subLoading: false,
-    placement: 'right' as const,
-  });
+const message = useMessage()
+const formRef: any = ref(null)
+const defaultValueRef = () => ({
+  label: '',
+  type: 1,
+  subtitle: '',
+  openType: 1,
+  auth: '',
+  path: '',
+  hidden: false,
+})
+const formParams = ref(defaultValueRef())
+const state = reactive({
+  isDrawer: false,
+  subLoading: false,
+  placement: 'right' as const,
+})
 
-  function openDrawer() {
-    state.isDrawer = true;
-  }
+function closeDrawer() {
+  state.isDrawer = false
+}
 
-  function closeDrawer() {
-    state.isDrawer = false;
-  }
+function formSubmit() {
+  formRef.value.validate((errors) => {
+    if (!errors) {
+      message.success('添加成功')
+      handleReset()
+      closeDrawer()
+    } else {
+      message.error('请填写完整信息')
+    }
+  })
+}
 
-  function formSubmit() {
-    formRef.value.validate((errors) => {
-      if (!errors) {
-        message.success('添加成功');
-        handleReset();
-        closeDrawer();
-      } else {
-        message.error('请填写完整信息');
-      }
-    });
-  }
-
-  function handleReset() {
-    formRef.value.restoreValidation();
-    formParams.value = Object.assign(formParams.value, defaultValueRef());
-  }
+function handleReset() {
+  formRef.value.restoreValidation()
+  formParams.value = Object.assign(formParams.value, defaultValueRef())
+}
 </script>

@@ -1,7 +1,7 @@
 <template>
   <n-grid cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
     <n-grid-item>
-      <n-form :label-width="120" :model="formValue" :rules="rules" ref="formRef">
+      <n-form ref="formRef" :label-width="120" :model="formValue" :rules="rules">
         <n-form-item label="商品图片(大)">
           <n-space align="center">
             <span>宽度：</span>
@@ -52,30 +52,30 @@
 
         <n-form-item label="水印位置" path="watermarkPlace">
           <n-select
+            v-model:value="formValue.watermarkPlace"
             placeholder="请选择价格精确方式"
             :options="watermarkPlaceList"
-            v-model:value="formValue.watermarkPlace"
           />
         </n-form-item>
 
         <n-form-item label="价格精确位数" path="pricePreciseNum">
           <n-select
+            v-model:value="formValue.pricePreciseNum"
             placeholder="请选择价格精确位数"
             :options="pricePreciseNumList"
-            v-model:value="formValue.pricePreciseNum"
           />
         </n-form-item>
 
         <n-form-item label="价格精确方式" path="pricePrecise">
           <n-select
+            v-model:value="formValue.pricePrecise"
             placeholder="请选择价格精确方式"
             :options="pricePreciseList"
-            v-model:value="formValue.pricePrecise"
           />
         </n-form-item>
 
         <n-form-item label="前台显示市场价" path="isMarketPrice">
-          <n-switch size="large" v-model:value="formValue.isMarketPrice" />
+          <n-switch v-model:value="formValue.isMarketPrice" size="large" />
         </n-form-item>
 
         <div>
@@ -89,112 +89,90 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
-  import { useDialog, useMessage } from 'naive-ui';
+import { useMessage } from 'naive-ui'
+import { ref } from 'vue'
 
-  const rules = {
-    name: {
-      required: true,
-      message: '请输入网站名称',
-      trigger: 'blur',
-    },
-    mobile: {
-      required: true,
-      message: '请输入联系电话',
-      trigger: 'input',
-    },
-  };
-  const watermarkPlaceList = [
-    {
-      label: '左上',
-      value: 1,
-    },
-    {
-      label: '右上',
-      value: 2,
-    },
-    {
-      label: '居中',
-      value: 3,
-    },
-    {
-      label: '右下',
-      value: 4,
-    },
-  ];
+const rules = {
+  name: {
+    required: true,
+    message: '请输入网站名称',
+    trigger: 'blur',
+  },
+  mobile: {
+    required: true,
+    message: '请输入联系电话',
+    trigger: 'input',
+  },
+}
+const watermarkPlaceList = [
+  {
+    label: '左上',
+    value: 1,
+  },
+  {
+    label: '右上',
+    value: 2,
+  },
+  {
+    label: '居中',
+    value: 3,
+  },
+  {
+    label: '右下',
+    value: 4,
+  },
+]
 
-  const pricePreciseNumList = [
-    {
-      label: '2位',
-      value: 1,
-    },
-    {
-      label: '3位',
-      value: 2,
-    },
-    {
-      label: '4位',
-      value: 3,
-    },
-  ];
-  const pricePreciseList = [
-    {
-      label: '四舍五入',
-      value: 1,
-    },
-    {
-      label: '向上取整',
-      value: 2,
-    },
-    {
-      label: '向下取整',
-      value: 3,
-    },
-  ];
+const pricePreciseNumList = [
+  {
+    label: '2位',
+    value: 1,
+  },
+  {
+    label: '3位',
+    value: 2,
+  },
+  {
+    label: '4位',
+    value: 3,
+  },
+]
+const pricePreciseList = [
+  {
+    label: '四舍五入',
+    value: 1,
+  },
+  {
+    label: '向上取整',
+    value: 2,
+  },
+  {
+    label: '向下取整',
+    value: 3,
+  },
+]
 
-  const formRef: any = ref(null);
-  const message = useMessage();
-  const dialog = useDialog();
+const formRef: any = ref(null)
+const message = useMessage()
 
-  const formValue = ref({
-    bigWidth: '',
-    bigHeight: '',
-    smallWidth: '',
-    smallHeight: '',
-    watermarkClarity: null,
-    pricePrecise: 1,
-    isMarketPrice: true,
-    pricePreciseNum: null,
-  });
+const formValue = ref({
+  bigWidth: '',
+  bigHeight: '',
+  smallWidth: '',
+  smallHeight: '',
+  watermarkClarity: null,
+  pricePrecise: 1,
+  isMarketPrice: true,
+  pricePreciseNum: null,
+})
 
-  function systemOpenChange(value) {
-    if (!value) {
-      dialog.warning({
-        title: '提示',
-        content: '您确定要关闭系统访问吗？该操作立马生效，请慎重操作！',
-        positiveText: '确定',
-        negativeText: '取消',
-        onPositiveClick: () => {
-          message.success('操作成功');
-        },
-        onNegativeClick: () => {
-          formValue.value.systemOpen = true;
-        },
-      });
+function formSubmit() {
+  formRef.value.validate((errors) => {
+    if (!errors) {
+      message.success('验证成功')
+    } else {
+      message.error('验证失败，请填写完整信息')
     }
-  }
-
-  function formSubmit() {
-    formRef.value.validate((errors) => {
-      if (!errors) {
-        message.success('验证成功');
-      } else {
-        message.error('验证失败，请填写完整信息');
-      }
-    });
-  }
-
-  function resetForm() {
-    formRef.value.restoreValidation();
-  }
+  })
+}
 </script>

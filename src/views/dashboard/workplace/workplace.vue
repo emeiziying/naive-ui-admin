@@ -59,7 +59,7 @@
               <div class="flex h-10 mt-2 text-gray-400">
                 是一个面向开源及私有软件项目的托管平台。
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 开源君，2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400">开源君，2021-07-04</div>
             </n-card>
             <n-card
               size="small"
@@ -74,8 +74,8 @@
                 </span>
                 <span class="ml-4 text-lg">Vue</span>
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 渐进式 JavaScript 框架 </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 学不动也要学，2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400">渐进式 JavaScript 框架</div>
+              <div class="flex h-10 mt-2 text-gray-400">学不动也要学，2021-07-04</div>
             </n-card>
             <n-card
               size="small"
@@ -90,8 +90,8 @@
                 </span>
                 <span class="ml-4 text-lg">Html5</span>
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> HTML5是互联网的下一代标准。 </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 撸码也是一种艺术 2021-04-01 </div>
+              <div class="flex h-10 mt-2 text-gray-400">HTML5是互联网的下一代标准。</div>
+              <div class="flex h-10 mt-2 text-gray-400">撸码也是一种艺术 2021-04-01</div>
             </n-card>
             <n-card
               size="small"
@@ -106,8 +106,8 @@
                 </span>
                 <span class="ml-4 text-lg">Angular</span>
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 现代 Web 开发平台，百万粉丝热捧。 </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 铁粉君 2021-07-04。 </div>
+              <div class="flex h-10 mt-2 text-gray-400">现代 Web 开发平台，百万粉丝热捧。</div>
+              <div class="flex h-10 mt-2 text-gray-400">铁粉君 2021-07-04。</div>
             </n-card>
             <n-card
               size="small"
@@ -122,8 +122,8 @@
                 </span>
                 <span class="ml-4 text-lg">React</span>
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 用于构建用户界面的 JavaScript 库。 </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 技术牛 2021-07-04。 </div>
+              <div class="flex h-10 mt-2 text-gray-400">用于构建用户界面的 JavaScript 库。</div>
+              <div class="flex h-10 mt-2 text-gray-400">技术牛 2021-07-04。</div>
             </n-card>
             <n-card
               size="small"
@@ -138,8 +138,8 @@
                 </span>
                 <span class="ml-4 text-lg">Js</span>
               </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 路是走出来的，而不是空想出来的。 </div>
-              <div class="flex h-10 mt-2 text-gray-400"> 架构组 2021-07-04 </div>
+              <div class="flex h-10 mt-2 text-gray-400">路是走出来的，而不是空想出来的。</div>
+              <div class="flex h-10 mt-2 text-gray-400">架构组 2021-07-04</div>
             </n-card>
           </div>
         </n-card>
@@ -299,30 +299,30 @@
 </template>
 
 <script lang="ts">
-  export default { name: 'DashboardWorkplace' };
+export default { name: 'DashboardWorkplace' }
 </script>
 
 <script lang="ts" setup>
-  import schoolboy from '@/assets/images/schoolboy.png';
-  import {
-    GithubOutlined,
-    DashboardOutlined,
-    ProfileOutlined,
-    FileProtectOutlined,
-    SettingOutlined,
-    ApartmentOutlined,
-    Html5Outlined,
-  } from '@vicons/antd';
-  import { LogoVue, LogoAngular, LogoReact, LogoJavascript } from '@vicons/ionicons5';
+import schoolboy from '@/assets/images/schoolboy.png'
+import {
+  GithubOutlined,
+  DashboardOutlined,
+  ProfileOutlined,
+  FileProtectOutlined,
+  SettingOutlined,
+  ApartmentOutlined,
+  Html5Outlined,
+} from '@vicons/antd'
+import { LogoVue, LogoAngular, LogoReact, LogoJavascript } from '@vicons/ionicons5'
 </script>
 
 <style lang="less" scoped>
-  .project-card {
-    margin-right: -6px;
+.project-card {
+  margin-right: -6px;
 
-    &-item {
-      margin: -1px;
-      width: 33.333333%;
-    }
+  &-item {
+    margin: -1px;
+    width: 33.333333%;
   }
+}
 </style>

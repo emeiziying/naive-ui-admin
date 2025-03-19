@@ -1,7 +1,7 @@
 <template>
   <n-grid cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
     <n-grid-item>
-      <n-form :label-width="120" :model="formValue" :rules="rules" ref="formRef">
+      <n-form ref="formRef" :label-width="120" :model="formValue" :rules="rules">
         <n-form-item label="发件人邮箱" path="originator">
           <n-input v-model:value="formValue.originator" placeholder="请输入发件人邮箱" />
         </n-form-item>
@@ -37,31 +37,31 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, toRefs } from 'vue';
-  import { useMessage } from 'naive-ui';
+import { useMessage } from 'naive-ui'
+import { ref } from 'vue'
 
-  const rules = {
-    originator: {
-      required: true,
-      message: '请输入发件人邮箱',
-      trigger: 'blur',
-    },
-  };
+const rules = {
+  originator: {
+    required: true,
+    message: '请输入发件人邮箱',
+    trigger: 'blur',
+  },
+}
 
-  const formRef: any = ref(null);
-  const message = useMessage();
+const formRef: any = ref(null)
+const message = useMessage()
 
-  const formValue = ref({
-    originator: '',
-  });
+const formValue = ref({
+  originator: '',
+})
 
-  function formSubmit() {
-    formRef.value.validate((errors) => {
-      if (!errors) {
-        message.success('验证成功');
-      } else {
-        message.error('验证失败，请填写完整信息');
-      }
-    });
-  }
+function formSubmit() {
+  formRef.value.validate((errors) => {
+    if (!errors) {
+      message.success('验证成功')
+    } else {
+      message.error('验证失败，请填写完整信息')
+    }
+  })
+}
 </script>

@@ -1,29 +1,29 @@
-import { h } from 'vue';
-import { NAvatar, NTag } from 'naive-ui';
-import { BasicColumn } from '@/components/Table';
+import { h } from 'vue'
+import { NAvatar, NTag } from 'naive-ui'
+import { BasicColumn } from '@/components/Table'
 export interface ListData {
-  id: number;
-  name: string;
-  sex: string;
-  avatar: string;
-  email: string;
-  city: string;
-  status: string;
-  type: string;
-  createDate: string;
+  id: number
+  name: string
+  sex: string
+  avatar: string
+  email: string
+  city: string
+  status: string
+  type: string
+  createDate: string
 }
 
 const sexMap = {
   male: '男',
   female: '女',
   unknown: '未知',
-};
+}
 
 const statusMap = {
   close: '已取消',
   refuse: '已拒绝',
   pass: '已通过',
-};
+}
 
 export const columns: BasicColumn<ListData>[] = [
   {
@@ -41,7 +41,7 @@ export const columns: BasicColumn<ListData>[] = [
       return h(NAvatar, {
         size: 50,
         src: record.avatar,
-      });
+      })
     },
   },
   {
@@ -55,8 +55,8 @@ export const columns: BasicColumn<ListData>[] = [
         },
         {
           default: () => sexMap[record.sex],
-        }
-      );
+        },
+      )
     },
   },
   {
@@ -79,17 +79,17 @@ export const columns: BasicColumn<ListData>[] = [
             record.status === 'close'
               ? 'default'
               : record.status === 'refuse'
-              ? 'error'
-              : 'success',
+                ? 'error'
+                : 'success',
         },
         {
           default: () => statusMap[record.status],
-        }
-      );
+        },
+      )
     },
   },
   {
     title: '创建时间',
     key: 'createDate',
   },
-];
+]

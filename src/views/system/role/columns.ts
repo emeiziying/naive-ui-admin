@@ -1,5 +1,5 @@
-import { h } from 'vue';
-import { NTag } from 'naive-ui';
+import { h } from 'vue'
+import { NTag } from 'naive-ui'
 
 export const columns = [
   {
@@ -25,12 +25,12 @@ export const columns = [
         },
         {
           default: () => (row.isDefault ? '是' : '否'),
-        }
-      );
+        },
+      )
     },
   },
   {
     title: '创建时间',
     key: 'create_date',
   },
-];
+]

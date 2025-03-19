@@ -4,9 +4,9 @@
       <n-grid-item span="6">
         <n-card :bordered="false" size="small" class="proCard">
           <n-thing
-            class="thing-cell"
             v-for="item in typeTabList"
             :key="item.key"
+            class="thing-cell"
             :class="{ 'thing-cell-on': state.type === item.key }"
             @click="switchType(item)"
           >
@@ -25,9 +25,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-import BasicSetting from './BasicSetting.vue';
-import SafetySetting from './SafetySetting.vue';
+import { reactive } from 'vue'
+import BasicSetting from './BasicSetting.vue'
+import SafetySetting from './SafetySetting.vue'
 
 const typeTabList = [
   {
@@ -40,16 +40,16 @@ const typeTabList = [
     desc: '密码，邮箱等设置',
     key: 2,
   },
-];
+]
 
 const state = reactive({
   type: 1,
   typeTitle: '基本设置',
-});
+})
 
 function switchType(e) {
-  state.type = e.key;
-  state.typeTitle = e.name;
+  state.type = e.key
+  state.typeTitle = e.name
 }
 </script>
 <style lang="less" scoped>

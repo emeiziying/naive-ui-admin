@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from 'vue-router';
-import { Layout } from '@/router/constant';
-import { SettingOutlined } from '@vicons/antd';
-import { renderIcon } from '@/utils/index';
+import { RouteRecordRaw } from 'vue-router'
+import { Layout } from '@/router/constant'
+import { SettingOutlined } from '@vicons/antd'
+import { renderIcon } from '@/utils/index'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,6 +33,6 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
