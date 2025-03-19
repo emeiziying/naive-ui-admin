@@ -1,20 +1,19 @@
-import { defineStore } from 'pinia';
-import { store } from '@/store';
-import designSetting from '@/settings/designSetting';
+import designSetting from '@/settings/designSetting'
+import { store } from '@/store'
+import { defineStore } from 'pinia'
 
-const { darkTheme, appTheme, appThemeList } = designSetting;
+const { darkTheme, appTheme, appThemeList } = designSetting
 
 interface DesignSettingState {
   //深色主题
-  darkTheme: boolean;
+  darkTheme: boolean
   //系统风格
-  appTheme: string;
+  appTheme: string
   //系统内置风格
-  appThemeList: string[];
+  appThemeList: string[]
 }
 
-export const useDesignSettingStore = defineStore({
-  id: 'app-design-setting',
+export const useDesignSettingStore = defineStore('app-design-setting', {
   state: (): DesignSettingState => ({
     darkTheme,
     appTheme,
@@ -22,19 +21,19 @@ export const useDesignSettingStore = defineStore({
   }),
   getters: {
     getDarkTheme(): boolean {
-      return this.darkTheme;
+      return this.darkTheme
     },
     getAppTheme(): string {
-      return this.appTheme;
+      return this.appTheme
     },
     getAppThemeList(): string[] {
-      return this.appThemeList;
+      return this.appThemeList
     },
   },
   actions: {},
-});
+})
 
 // Need to be used outside the setup
 export function useDesignSetting() {
-  return useDesignSettingStore(store);
+  return useDesignSettingStore(store)
 }
